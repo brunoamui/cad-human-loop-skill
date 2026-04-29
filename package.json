@@ -1,0 +1,19 @@
+{
+  "name": "cad-human-loop-skill",
+  "version": "0.1.0",
+  "description": "OpenCode skill for human-in-the-loop CAD workflows with coding agents",
+  "type": "module",
+  "exports": {
+    ".": "./index.js"
+  },
+  "keywords": [
+    "opencode",
+    "skill",
+    "cad",
+    "build123d",
+    "cadquery",
+    "freecad",
+    "agent"
+  ],
+  "license": "MIT"
+}

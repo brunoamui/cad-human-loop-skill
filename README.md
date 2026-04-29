@@ -31,12 +31,24 @@ The skill gives agents a practical workflow for:
 
 ```text
 SKILL.md
+skills/
+  cad-human-loop/
+    SKILL.md
 references/
   workflow-blueprint.md
   checkpoint-template.md
 examples/
+  cadquery/
+    mounting_bracket.py
+  build123d/
+    mounting_bracket.py
   mounting-bracket-checkpoint-plan.md
+  artifact-workflow.md
 ```
+
+The repo now supports both:
+- a **root skill file** for simple standalone use
+- a **plugin-friendly `skills/cad-human-loop/SKILL.md` layout** for collections and plugin-style packaging
 
 ## Install
 
@@ -53,6 +65,22 @@ ln -s /path/to/cad-human-loop-skill ~/.config/opencode/skills/cad-human-loop
 
 Or copy just the root skill file and companion folders if your setup expects that layout.
 
+### As a plugin-friendly skill package
+This repo also includes the canonical plugin-discoverable layout:
+
+```text
+skills/cad-human-loop/SKILL.md
+```
+
+and a minimal plugin entrypoint:
+
+```text
+index.js
+package.json
+```
+
+That makes the repository usable both as a standalone skill repo and as a lightweight plugin-style package that exposes `./skills/*`.
+
 ## Who this is for
 
 - people building CAD-capable coding agents
@@ -64,6 +92,19 @@ Or copy just the root skill file and companion folders if your setup expects tha
 The core idea is simple:
 
 > keep the source of truth in code, keep the progress visible in images and STEP files, and keep the conversation about geometry rather than hidden agent state.
+
+## Included runnable examples
+
+The repo includes concrete example scripts for the same parametric mounting bracket in both major script-first CAD styles:
+
+- `examples/build123d/mounting_bracket.py`
+- `examples/cadquery/mounting_bracket.py`
+
+It also includes an artifact-oriented workflow note:
+
+- `examples/artifact-workflow.md`
+
+Those examples are intentionally structured to make checkpointing easy: dimensions are exposed up top, the part construction is broken into understandable phases, and export calls are included as commented examples.
 
 ## License
 
