@@ -26,6 +26,41 @@ SUPPORT_WIDTH = 30.0
 SUPPORT_HEIGHT = 25.0
 
 
+PARAMETERS = {
+    "BASE_LENGTH": BASE_LENGTH,
+    "BASE_WIDTH": BASE_WIDTH,
+    "BASE_THICKNESS": BASE_THICKNESS,
+    "BOLT_HOLE_RADIUS": BOLT_HOLE_RADIUS,
+    "BOLT_HOLE_X_OFFSET": BOLT_HOLE_X_OFFSET,
+    "SLOT_LENGTH": SLOT_LENGTH,
+    "SLOT_WIDTH": SLOT_WIDTH,
+    "SUPPORT_LENGTH": SUPPORT_LENGTH,
+    "SUPPORT_WIDTH": SUPPORT_WIDTH,
+    "SUPPORT_HEIGHT": SUPPORT_HEIGHT,
+}
+
+
+def build_checkpoint_parts() -> dict[str, Part]:
+    checkpoints: dict[str, Part] = {}
+
+    with BuildPart() as base_only:
+        Box(BASE_LENGTH, BASE_WIDTH, BASE_THICKNESS)
+    checkpoints["checkpoint-1-base"] = base_only.part
+
+    with BuildPart() as with_features:
+        Box(BASE_LENGTH, BASE_WIDTH, BASE_THICKNESS)
+        top_face = with_features.faces().sort_by(Axis.Z)[-1]
+        with BuildSketch(top_face):
+            with Locations((-BOLT_HOLE_X_OFFSET, 0), (BOLT_HOLE_X_OFFSET, 0)):
+                Circle(BOLT_HOLE_RADIUS)
+            SlotOverall(SLOT_LENGTH, SLOT_WIDTH)
+        extrude(amount=-BASE_THICKNESS, mode=Mode.SUBTRACT)
+    checkpoints["checkpoint-2-features"] = with_features.part
+
+    checkpoints["checkpoint-3-support"] = build_bracket()
+    return checkpoints
+
+
 def build_bracket() -> Part:
     with BuildPart() as bracket:
         # Phase 1: base shape

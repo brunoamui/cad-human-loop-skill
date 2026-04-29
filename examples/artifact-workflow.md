@@ -2,6 +2,13 @@
 
 This example shows how an agent should present progress while building a part.
 
+The repo includes a helper that can generate these artifacts from the bundled examples:
+
+```bash
+python scripts/generate_checkpoints.py --module build123d --output-dir artifacts/build123d --stl
+python scripts/generate_checkpoints.py --module cadquery --output-dir artifacts/cadquery --stl
+```
+
 ## Suggested artifact directory
 
 ```text

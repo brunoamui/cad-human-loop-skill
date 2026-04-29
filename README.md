@@ -44,6 +44,8 @@ examples/
     mounting_bracket.py
   mounting-bracket-checkpoint-plan.md
   artifact-workflow.md
+scripts/
+  generate_checkpoints.py
 ```
 
 The repo now supports both:
@@ -104,7 +106,34 @@ It also includes an artifact-oriented workflow note:
 
 - `examples/artifact-workflow.md`
 
+and a real helper script for checkpoint generation:
+
+- `scripts/generate_checkpoints.py`
+
 Those examples are intentionally structured to make checkpointing easy: dimensions are exposed up top, the part construction is broken into understandable phases, and export calls are included as commented examples.
+
+## Generate checkpoint artifacts
+
+If you have the relevant CAD library installed, you can generate real checkpoint artifacts from the included examples.
+
+### build123d
+
+```bash
+python scripts/generate_checkpoints.py --module build123d --output-dir artifacts/build123d --stl
+```
+
+### CadQuery
+
+```bash
+python scripts/generate_checkpoints.py --module cadquery --output-dir artifacts/cadquery --stl
+```
+
+The helper writes:
+- checkpoint STEP files
+- optional checkpoint STL files
+- `parameters.json`
+- `parameters.md`
+- PNG screenshots when `ocp_vscode` is installed and screenshot capture is available
 
 ## License
 
